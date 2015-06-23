@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".ContactList">
+
+    <item android:id="@+id/az_sort"
+        app:showAsAction="never"
+        android:title="@string/az_sort_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <item android:id="@+id/za_sort"
+        app:showAsAction="never"
+        android:title="@string/za_sort_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</menu>
