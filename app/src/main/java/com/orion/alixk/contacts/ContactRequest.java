@@ -1,6 +1,7 @@
 package com.orion.alixk.contacts;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -14,12 +15,11 @@ import java.util.ArrayList;
  */
 public class ContactRequest {
     private static final String URL_ADDRESS = "http://jsonplaceholder.typicode.com/users";
-    private ContactsJSONParser parser;
+    private static final ContactsJSONParser PARSER = new ContactsJSONParser();
     private ContactList mainActivity;
 
-    public ContactRequest(ContactList mainActivity, ContactsJSONParser parser){
+    public ContactRequest(ContactList mainActivity){
         this.mainActivity = mainActivity;
-        this.parser = parser;
     }
 
     public void establishConnection(){
@@ -33,57 +33,37 @@ public class ContactRequest {
 
     }
 
-    private class HttpConnectionTask extends AsyncTask<URL, Void, Void> {
+    private class HttpConnectionTask extends AsyncTask<URL, ArrayList<ContactObject>, ArrayList<ContactObject>> {
 
 
         @Override
-        protected Void doInBackground(URL... params) {
+        protected ArrayList<ContactObject> doInBackground(URL... params) {
 
             URL url = params[0];
-
-            HttpURLConnection connection = connectToUrl(url);
-
-            try {
-                if(connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    BufferedInputStream httpResponseStream = retrieveDataFromURL(connection);
-                    ArrayList<ContactObject> contactList = parser.parseContactList(httpResponseStream);
-                    mainActivity.populateContactsList(contactList);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return null;
-        }
-
-        protected void onPostExecute(){}
-
-        protected void onPreExecute(){}
-
-        protected HttpURLConnection connectToUrl(URL url)  {
+            ArrayList<ContactObject> contactList = new ArrayList<ContactObject>();
+            HttpURLConnection httpConnection = null;
 
             try {
-
-                return (HttpURLConnection) url.openConnection();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        protected BufferedInputStream retrieveDataFromURL(HttpURLConnection httpConnection)throws IOException {
-
-            try {
-                return new BufferedInputStream(httpConnection.getInputStream());
+                httpConnection = (HttpURLConnection) url.openConnection();
+                BufferedInputStream httpResponseStream = new BufferedInputStream(httpConnection.getInputStream());
+                contactList = PARSER.parseContactList(httpResponseStream);
+                Log.d(Constants.LOG, contactList.get(0).getFullName());
 
             } catch (IOException e){
                 e.printStackTrace();
-                return null;
             } finally {
                 httpConnection.disconnect();
             }
+
+            return contactList;
         }
+
+        protected void onPostExecute(ArrayList<ContactObject> contactList){
+            mainActivity.populateContactsList(contactList);
+        }
+
+        protected void onPreExecute(){}
+
 
     }
 
