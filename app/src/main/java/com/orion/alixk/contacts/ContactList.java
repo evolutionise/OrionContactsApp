@@ -1,13 +1,14 @@
 package com.orion.alixk.contacts;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,14 +18,15 @@ import java.util.Comparator;
 public class ContactList extends Activity {
     private ContactArrayAdapter arrayAdapter;
     private  ArrayList<ContactObject> contactList;
-    private ProgressBar spinner;
+    private View spinnerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_list);
-        spinner = (ProgressBar)findViewById(R.id.progress_bar);
-        spinner.setVisibility(View.VISIBLE);
+        spinnerView = (View)findViewById(R.id.spinner_layout);
+        spinnerView.setVisibility(View.VISIBLE);
         new ContactRequest(this).establishConnection();
     }
 
@@ -44,7 +46,6 @@ public class ContactList extends Activity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        boolean alphabetical;
         switch(item.getItemId()) {
             case R.id.az_sort:
                 sortContactsAlphabetically(true);
@@ -74,8 +75,19 @@ public class ContactList extends Activity {
         this.contactList = contactList;
         arrayAdapter = new ContactArrayAdapter(this, contactList);
         final ListView listView = (ListView) findViewById(R.id.contacts_list_view);
-        spinner.setVisibility(View.GONE);
+        spinnerView.setVisibility(View.GONE);
         listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContactObject contact = (ContactObject) parent.getItemAtPosition(position);
+                Intent intent = new Intent(ContactList.this, ContactPage.class);
+                intent.putExtra(Constants.CONTACT_KEY, contact);
+                startActivity(intent);
+            }
+
+        });
     }
 
 }

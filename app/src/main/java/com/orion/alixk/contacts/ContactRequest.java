@@ -1,7 +1,6 @@
 package com.orion.alixk.contacts;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -47,8 +46,6 @@ public class ContactRequest {
                 httpConnection = (HttpURLConnection) url.openConnection();
                 BufferedInputStream httpResponseStream = new BufferedInputStream(httpConnection.getInputStream());
                 contactList = PARSER.parseContactList(httpResponseStream);
-                Log.d(Constants.LOG, contactList.get(0).getFullName());
-
             } catch (IOException e){
                 e.printStackTrace();
             } finally {

@@ -2,15 +2,47 @@ package com.orion.alixk.contacts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by alixk on 2/06/15.
  */
-public class ContactObject {
+
+@SuppressWarnings("serial")
+public class ContactObject implements Serializable {
     private String name;
     private String emailAddress;
     private String userName;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
     private String phoneNumber;
     private int id;
     private Address address;
@@ -70,7 +102,8 @@ public class ContactObject {
         return emailAddress;
     }
 
-    public static class Company {
+    @SuppressWarnings("serial")
+    public static class Company implements Serializable{
         String companyName;
         String companyCatchPhrase;
         String companyBs;
@@ -104,8 +137,8 @@ public class ContactObject {
 
     }
 
-
-    public static class Address {
+    @SuppressWarnings("serial")
+    public static class Address implements Serializable {
         String street;
         String suite;
         String city;
@@ -152,8 +185,8 @@ public class ContactObject {
             this.geo = geo;
         }
 
-
-        public static class Geo {
+        @SuppressWarnings("serial")
+        public static class Geo implements Serializable{
             String latitude;
             String longitude;
 

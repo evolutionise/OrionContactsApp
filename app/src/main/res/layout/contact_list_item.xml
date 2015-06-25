@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Medium Text"
+        android:textAllCaps="true"
         android:id="@+id/contact_list_item_names" />
 
     <TextView
@@ -15,6 +16,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
+        android:textAllCaps="true"
         android:id="@+id/contact_list_item_email_address"
         android:layout_below="@+id/contact_list_item_names"
         android:layout_alignParentLeft="true"

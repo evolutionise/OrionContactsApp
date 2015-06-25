@@ -6,4 +6,5 @@ package com.orion.alixk.contacts;
 public interface Constants {
 
     public final static String LOG = "com.alixk.contactsapp";
+    public final static String CONTACT_KEY = "contact";
 }
