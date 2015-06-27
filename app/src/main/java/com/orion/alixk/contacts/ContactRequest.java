@@ -2,6 +2,9 @@ package com.orion.alixk.contacts;
 
 import android.os.AsyncTask;
 
+import org.androidannotations.annotations.EBean;
+import org.androidannotations.annotations.RootContext;
+
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -9,17 +12,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by alixk on 2/06/15.
- */
+@EBean
 public class ContactRequest {
     private static final String URL_ADDRESS = "http://jsonplaceholder.typicode.com/users";
     private static final ContactsJSONParser PARSER = new ContactsJSONParser();
-    private ContactList mainActivity;
-
-    public ContactRequest(ContactList mainActivity){
-        this.mainActivity = mainActivity;
-    }
+    @RootContext
+    ContactList mainActivity;
 
     public void establishConnection(){
 
@@ -33,7 +31,6 @@ public class ContactRequest {
     }
 
     private class HttpConnectionTask extends AsyncTask<URL, ArrayList<ContactObject>, ArrayList<ContactObject>> {
-
 
         @Override
         protected ArrayList<ContactObject> doInBackground(URL... params) {
@@ -60,8 +57,10 @@ public class ContactRequest {
         }
 
         protected void onPreExecute(){}
+    }
 
-
+    private void httpCallFailed(){
+        
     }
 
 

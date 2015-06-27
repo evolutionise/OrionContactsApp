@@ -139,11 +139,11 @@ public class ContactObject implements Serializable {
 
     @SuppressWarnings("serial")
     public static class Address implements Serializable {
-        String street;
-        String suite;
-        String city;
-        String zipcode;
-        Geo geo;
+        private String street;
+        private String suite;
+        private String city;
+        private String zipcode;
+        private Geo geo;
 
         public String getStreet() {
             return street;

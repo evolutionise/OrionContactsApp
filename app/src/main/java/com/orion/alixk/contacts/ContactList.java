@@ -2,7 +2,6 @@ package com.orion.alixk.contacts;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,24 +9,27 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
+@EActivity(R.layout.activity_contact_list)
 public class ContactList extends Activity {
     private ContactArrayAdapter arrayAdapter;
     private  ArrayList<ContactObject> contactList;
-    private View spinnerView;
+    @ViewById(R.id.spinner_layout)
+    View loadingView;
+    @Bean
+    ContactRequest contactRequest;
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contact_list);
-        spinnerView = (View)findViewById(R.id.spinner_layout);
-        spinnerView.setVisibility(View.VISIBLE);
-        new ContactRequest(this).establishConnection();
+    @AfterViews
+    void init(){
+        contactRequest.establishConnection();
     }
 
     /*
@@ -42,7 +44,6 @@ public class ContactList extends Activity {
 
     /*
     When an option is selected, one of the cases is activated.
-    TODO: add a default
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -75,7 +76,7 @@ public class ContactList extends Activity {
         this.contactList = contactList;
         arrayAdapter = new ContactArrayAdapter(this, contactList);
         final ListView listView = (ListView) findViewById(R.id.contacts_list_view);
-        spinnerView.setVisibility(View.GONE);
+        loadingView.setVisibility(View.GONE);
         listView.setAdapter(arrayAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
