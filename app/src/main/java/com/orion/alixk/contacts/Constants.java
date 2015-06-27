@@ -12,4 +12,6 @@ public interface Constants {
     public final static String ADDRESS = "Address";
     public final static String WEBSITE = "Website";
     public final static String COMPANY = "Company";
+    public final static String CANCEL = "Cancel";
+    public final static String RETRY = "Retry";
 }

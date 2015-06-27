@@ -3,7 +3,6 @@ package com.orion.alixk.contacts;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by alixk on 2/06/15.
@@ -209,20 +208,5 @@ public class ContactObject implements Serializable {
             }
         }
     }
-
-//    public static ContactObject getTestObject(){
-//       return new ContactObject("ALIX K", "ALIX@EMAIL.COM");
-//    }
-
-    public static ArrayList<ContactObject> getTestList(){
-        ArrayList<ContactObject> testContactList = new ArrayList<ContactObject>();
-        testContactList.add(new ContactObject().setName("BLIX K").setEmailAddress("ALIXK@EMAIL.COM"));
-        testContactList.add(new ContactObject().setName("ALIX L").setEmailAddress("ALIXL@EMAIL.COM"));
-        testContactList.add(new ContactObject().setName("DLIX M").setEmailAddress("ALIXM@EMAIL.COM"));
-        testContactList.add(new ContactObject().setName("ELIX N").setEmailAddress("ALIXN@EMAIL.COM"));
-        testContactList.add(new ContactObject().setName("CLIX O").setEmailAddress("ALIXO@EMAIL.COM"));
-        return testContactList;
-    }
-
 
 }

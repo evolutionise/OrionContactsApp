@@ -1,6 +1,8 @@
 package com.orion.alixk.contacts;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.androidannotations.annotations.res.StringRes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,6 +25,8 @@ import java.util.Comparator;
 public class ContactList extends Activity {
     private ContactArrayAdapter arrayAdapter;
     private  ArrayList<ContactObject> contactList;
+    @StringRes(R.string.alert_dialog_text)
+    String dialogText;
     @ViewById(R.id.spinner_layout)
     View loadingView;
     @Bean
@@ -89,6 +94,30 @@ public class ContactList extends Activity {
             }
 
         });
+    }
+
+    public void showConnectionFailedDialog(){
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setMessage(dialogText);
+        alertBuilder.setCancelable(true);
+        alertBuilder.setPositiveButton(Constants.RETRY,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        init();
+                        loadingView.setVisibility(View.VISIBLE);
+                        dialog.cancel();
+                    }
+                });
+        alertBuilder.setNegativeButton(Constants.CANCEL,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog connectionFailedDialog = alertBuilder.create();
+        connectionFailedDialog.show();
     }
 
 }

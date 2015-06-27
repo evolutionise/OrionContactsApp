@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import org.androidannotations.annotations.EBean;
 import org.androidannotations.annotations.RootContext;
+import org.androidannotations.annotations.UiThread;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -44,11 +45,10 @@ public class ContactRequest {
                 BufferedInputStream httpResponseStream = new BufferedInputStream(httpConnection.getInputStream());
                 contactList = PARSER.parseContactList(httpResponseStream);
             } catch (IOException e){
-                e.printStackTrace();
+                httpCallFailed();
             } finally {
                 httpConnection.disconnect();
             }
-
             return contactList;
         }
 
@@ -59,8 +59,9 @@ public class ContactRequest {
         protected void onPreExecute(){}
     }
 
-    private void httpCallFailed(){
-        
+    @UiThread
+    void httpCallFailed(){
+        mainActivity.showConnectionFailedDialog();
     }
 
 
