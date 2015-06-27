@@ -14,27 +14,42 @@ import java.util.ArrayList;
  * Created by alixk on 2/06/15.
  */
 public class ContactArrayAdapter extends ArrayAdapter<ContactObject>{
-    private ArrayList<ContactObject> contacts;
     private Context context;
 
     ContactArrayAdapter(Context context, ArrayList<ContactObject> contacts){
             super(context, -1, contacts);
-            this.contacts = contacts;
             this.context = context;
+    }
+
+    private class ViewHolder{
+        TextView nameView;
+        TextView emailView;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.contact_list_item, parent, false);
 
-        TextView nameView = (TextView) rowView.findViewById(R.id.contact_list_item_names);
-        nameView.setText(contacts.get(position).getFullName());
+        ViewHolder holder;
+        ContactObject contact = getItem(position);
 
-        TextView emailView = (TextView) rowView.findViewById(R.id.contact_list_item_email_address);
-        emailView.setText(contacts.get(position).getEmailAddress());
+        if (convertView == null){
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.contact_list_item, parent, false);
 
-        return rowView;
+            holder = new ViewHolder();
+            holder.emailView = (TextView) convertView.findViewById(R.id.contact_list_item_email_address);
+            holder.nameView = (TextView) convertView.findViewById(R.id.contact_list_item_names);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        holder.nameView.setText(contact.getFullName());
+        holder.emailView.setText(contact.getEmailAddress());
+
+
+
+        return convertView;
     }
 
 }

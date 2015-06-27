@@ -6,9 +6,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
+@EActivity
 public class ContactPage extends Activity {
-
+    @ViewById(R.id.username_text) TextView userNameText;
+    @ViewById(R.id.username_label) TextView userNameLabel;
+    @ViewById(R.id.phone_text) TextView phoneText;
+    @ViewById(R.id.phone_label) TextView phoneLabel;
+    @ViewById(R.id.address_text) TextView addressText;
+    @ViewById(R.id.address_label) TextView addressLabel;
+    @ViewById(R.id.website_text) TextView websiteText;
+    @ViewById(R.id.website_label) TextView websiteLabel;
+    @ViewById(R.id.company_text) TextView companyText;
+    @ViewById(R.id.company_label) TextView companyLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +28,7 @@ public class ContactPage extends Activity {
         setContentView(R.layout.activity_contact_page);
 
         Intent intent = getIntent();
-        ContactObject contact = (ContactObject) intent.getSerializableExtra(Constants.CONTACT_KEY);
+        ContactObject contact = ContactListActivity.contacts.get((int) intent.getSerializableExtra(Constants.CONTACT_KEY));
 
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(contact.getFullName());
@@ -26,39 +38,20 @@ public class ContactPage extends Activity {
     }
 
     private void populateTextFields(ContactObject contact) {
-        //username
-        TextView userNameText = (TextView) findViewById(R.id.username_text);
-        userNameText.setText(contact.getUserName());
 
-        TextView userNameLabel = (TextView) findViewById(R.id.username_label);
+        userNameText.setText(contact.getUserName());
         userNameLabel.setText(Constants.USERNAME);
 
-        //phone
-        TextView phoneText = (TextView) findViewById(R.id.phone_text);
         phoneText.setText(contact.getPhoneNumber());
-
-        TextView phoneLabel = (TextView) findViewById(R.id.phone_label);
         phoneLabel.setText(Constants.PHONE);
 
-        //address
-        TextView addressText = (TextView) findViewById(R.id.address_text);
         addressText.setText(formatAddress(contact.getAddress()));
-
-        TextView addressLabel = (TextView) findViewById(R.id.address_label);
         addressLabel.setText(Constants.ADDRESS);
 
-        //website
-        TextView websiteText = (TextView) findViewById(R.id.website_text);
         websiteText.setText(contact.getWebsite());
-
-        TextView websiteLabel = (TextView) findViewById(R.id.website_label);
         websiteLabel.setText(Constants.WEBSITE);
 
-        //company
-        TextView companyText = (TextView) findViewById(R.id.company_text);
         companyText.setText(formatCompany(contact.getCompany()));
-
-        TextView companyLabel = (TextView) findViewById(R.id.company_label);
         companyLabel.setText(Constants.COMPANY);
 
     }

@@ -14,6 +14,7 @@ import android.widget.ListView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.res.StringRes;
 
@@ -22,19 +23,19 @@ import java.util.Collections;
 import java.util.Comparator;
 
 @EActivity(R.layout.activity_contact_list)
-public class ContactList extends Activity {
+public class ContactListActivity extends Activity {
+    public static ArrayList<ContactObject> contacts;
     private ContactArrayAdapter arrayAdapter;
-    private  ArrayList<ContactObject> contactList;
     @StringRes(R.string.alert_dialog_text)
     String dialogText;
     @ViewById(R.id.spinner_layout)
     View loadingView;
     @Bean
-    ContactRequest contactRequest;
+    ContactServiceRequest contactServiceRequest;
 
     @AfterViews
     void init(){
-        contactRequest.establishConnection();
+        contactServiceRequest.establishConnection();
     }
 
     /*
@@ -64,8 +65,27 @@ public class ContactList extends Activity {
         return true;
     }
 
+    @UiThread
+    public void populateContactsList(ArrayList<ContactObject> contacts) {
+        this.contacts = contacts;
+        arrayAdapter = new ContactArrayAdapter(this, contacts);
+        final ListView listView = (ListView) findViewById(R.id.contacts_list_view);
+        loadingView.setVisibility(View.GONE);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContactObject contact = (ContactObject) parent.getItemAtPosition(position);
+                Intent intent = new Intent(ContactListActivity.this, ContactPage_.class);
+                intent.putExtra(Constants.CONTACT_KEY, position);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void sortContactsAlphabetically(final boolean alphabetical){
-        Collections.sort(contactList, new Comparator<ContactObject>() {
+        Collections.sort(contacts, new Comparator<ContactObject>() {
             public int compare(ContactObject contact1, ContactObject contact2) {
                 int comparisonResult = contact1.getFullName().compareTo(contact2.getFullName());
 
@@ -77,25 +97,7 @@ public class ContactList extends Activity {
         });
     }
 
-    public void populateContactsList(ArrayList<ContactObject> contactList) {
-        this.contactList = contactList;
-        arrayAdapter = new ContactArrayAdapter(this, contactList);
-        final ListView listView = (ListView) findViewById(R.id.contacts_list_view);
-        loadingView.setVisibility(View.GONE);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContactObject contact = (ContactObject) parent.getItemAtPosition(position);
-                Intent intent = new Intent(ContactList.this, ContactPage.class);
-                intent.putExtra(Constants.CONTACT_KEY, contact);
-                startActivity(intent);
-            }
-
-        });
-    }
-
+    @UiThread
     public void showConnectionFailedDialog(){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setMessage(dialogText);

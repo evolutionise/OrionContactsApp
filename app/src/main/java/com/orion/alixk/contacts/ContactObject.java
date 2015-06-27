@@ -2,14 +2,8 @@ package com.orion.alixk.contacts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.io.Serializable;
 
-/**
- * Created by alixk on 2/06/15.
- */
-
-@SuppressWarnings("serial")
-public class ContactObject implements Serializable {
+public class ContactObject {
     private String name;
     private String emailAddress;
     private String userName;
@@ -101,8 +95,7 @@ public class ContactObject implements Serializable {
         return emailAddress;
     }
 
-    @SuppressWarnings("serial")
-    public static class Company implements Serializable{
+    public static class Company {
         String companyName;
         String companyCatchPhrase;
         String companyBs;
@@ -136,8 +129,7 @@ public class ContactObject implements Serializable {
 
     }
 
-    @SuppressWarnings("serial")
-    public static class Address implements Serializable {
+    public static class Address {
         private String street;
         private String suite;
         private String city;
@@ -184,8 +176,7 @@ public class ContactObject implements Serializable {
             this.geo = geo;
         }
 
-        @SuppressWarnings("serial")
-        public static class Geo implements Serializable{
+        public static class Geo{
             String latitude;
             String longitude;
 
