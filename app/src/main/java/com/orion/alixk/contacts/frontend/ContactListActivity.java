@@ -27,6 +27,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * The main activity.
+ * Displays the main list of contacts and some exception flow handling.
+ * Uses Android Annotations in some places for convenience and readability.
+ */
+
 @EActivity(R.layout.activity_contact_list)
 public class ContactListActivity extends Activity {
     public static ArrayList<ContactObject> contacts;
@@ -38,19 +44,22 @@ public class ContactListActivity extends Activity {
     @Bean
     ContactServiceRequest contactServiceRequest;
 
+    /**
+     * Called instead of OnCreate
+     */
     @AfterViews
     void init(){
         //check to see if contacts already exist so it doesn't fetch them every time this activity is opened
-        if(contacts == null){
+        contacts = new ArrayList<ContactObject>();
+        if(contacts.isEmpty()){
             contactServiceRequest.establishConnection();
         } else {
             populateContactsList(contacts);
         }
-
     }
 
-    /*
-    On creation of the activity, the options menu is created as well
+    /**
+     * On creation of the activity, the options menu is created as well
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,8 +68,8 @@ public class ContactListActivity extends Activity {
         return super.onCreateOptionsMenu((menu));
     }
 
-    /*
-    When an option is selected, one of the cases is activated.
+    /**
+    *When an option is selected, one of the cases is activated.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -71,11 +80,14 @@ public class ContactListActivity extends Activity {
             case R.id.za_sort:
                 sortContactsAlphabetically(false);
         }
-
         arrayAdapter.notifyDataSetChanged();
         return true;
     }
 
+    /**
+     *This method is called to populate the screen.
+     *Can be called after the HTML request is finished, or when returning to this activity.
+     */
     @UiThread
     public void populateContactsList(ArrayList<ContactObject> contacts) {
         this.contacts = contacts;
@@ -94,6 +106,11 @@ public class ContactListActivity extends Activity {
         });
     }
 
+    /**
+     * @param boolean alphabetical - this determines whether the list is sorted alphabetically or reverse alphabetically.
+     * If the list is reverse alphabetical, the result of the comparison is inverted.
+     * The multiplication has no effect if the objects are the same.
+     */
     private void sortContactsAlphabetically(final boolean alphabetical){
         Collections.sort(contacts, new Comparator<ContactObject>() {
             public int compare(ContactObject contact1, ContactObject contact2) {
@@ -107,6 +124,10 @@ public class ContactListActivity extends Activity {
         });
     }
 
+    /**
+     * Shows a dialog after a failed request for the contacts.
+     * It displays a retry button.
+     */
     @UiThread
     public void showConnectionFailedDialog(){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);

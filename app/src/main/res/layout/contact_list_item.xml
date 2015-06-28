@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_textview_padding"
+    android:paddingTop="@dimen/activity_textview_padding">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,6 +19,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Small Text"
         android:textAllCaps="true"
+        android:textColor="#939393"
         android:id="@+id/contact_list_item_email_address"
         android:layout_below="@+id/contact_list_item_names"
         android:layout_alignParentLeft="true"

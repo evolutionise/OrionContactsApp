@@ -15,48 +15,44 @@
 
     <TextView
         style="@style/contact_page__small_style"
-        android:id="@+id/username_label"
-        android:layout_below="@+id/username_text"/>
+        android:id="@+id/username_label" />
 
     <TextView
         style="@style/contact_page__medium_style"
-        android:id="@+id/phone_text"
-        android:layout_below="@+id/username_label" />
+        android:id="@+id/phone_text" />
 
     <TextView
         style="@style/contact_page__small_style"
-        android:id="@+id/phone_label"
-        android:layout_below="@+id/phone_text" />
+        android:id="@+id/phone_label" />
 
     <TextView
         style="@style/contact_page__medium_style"
-        android:id="@+id/address_text"
-        android:layout_below="@+id/phone_label" />
+        android:id="@+id/address_text" />
 
     <TextView
         style="@style/contact_page__small_style"
-        android:id="@+id/address_label"
-        android:layout_below="@+id/address_text" />
+        android:id="@+id/address_label" />
 
     <TextView
         style="@style/contact_page__medium_style"
         android:textAllCaps="true"
-        android:id="@+id/website_text"
-        android:layout_below="@+id/address_label" />
+        android:id="@+id/website_text" />
 
     <TextView
         style="@style/contact_page__small_style"
-        android:id="@+id/website_label"
-        android:layout_below="@+id/website_text"/>
+        android:id="@+id/website_label" />
+
+    <TextView
+        style="@style/Divider"
+        android:id="@+id/contact_page_divider"
+        />
 
     <TextView
         style="@style/contact_page__medium_style"
-        android:id="@+id/company_text"
-        android:layout_below="@+id/website_label" />
+        android:id="@+id/company_text" />
 
     <TextView
         style="@style/contact_page__small_style"
-        android:id="@+id/company_label"
-        android:layout_below="@+id/company_text" />
+        android:id="@+id/company_label" />
 
 </LinearLayout>

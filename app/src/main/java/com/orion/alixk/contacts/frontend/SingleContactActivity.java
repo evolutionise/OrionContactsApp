@@ -13,6 +13,11 @@ import com.orion.alixk.contacts.R;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+/**
+ * Activity that displays information about a single contact.
+ * Based on the visible information per the Android Junior Test document supplied.
+ */
+
 @EActivity
 public class SingleContactActivity extends Activity {
     @ViewById(R.id.username_text) TextView userNameText;
