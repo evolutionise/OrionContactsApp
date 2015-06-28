@@ -24,7 +24,6 @@
     </style>
 
     <style name="contact_page__small_style">
-        <item name="android:paddingTop">@dimen/activity_textview_padding</item>
         <item name="android:paddingBottom">@dimen/activity_textview_padding</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

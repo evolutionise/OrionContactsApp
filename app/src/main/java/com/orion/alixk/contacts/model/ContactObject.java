@@ -1,4 +1,4 @@
-package com.orion.alixk.contacts;
+package com.orion.alixk.contacts.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

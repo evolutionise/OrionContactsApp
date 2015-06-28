@@ -1,7 +1,8 @@
-package com.orion.alixk.contacts;
+package com.orion.alixk.contacts.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.orion.alixk.contacts.model.ContactObject;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.orion.alixk.contacts;
+package com.orion.alixk.contacts.frontend;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -6,11 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.orion.alixk.contacts.util.Constants;
+import com.orion.alixk.contacts.model.ContactObject;
+import com.orion.alixk.contacts.R;
+
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 @EActivity
-public class ContactPage extends Activity {
+public class SingleContactActivity extends Activity {
     @ViewById(R.id.username_text) TextView userNameText;
     @ViewById(R.id.username_label) TextView userNameLabel;
     @ViewById(R.id.phone_text) TextView phoneText;

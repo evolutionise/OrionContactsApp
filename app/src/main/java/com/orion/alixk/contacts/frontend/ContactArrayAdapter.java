@@ -1,4 +1,4 @@
-package com.orion.alixk.contacts;
+package com.orion.alixk.contacts.frontend;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.orion.alixk.contacts.model.ContactObject;
+import com.orion.alixk.contacts.R;
 
 import java.util.ArrayList;
 

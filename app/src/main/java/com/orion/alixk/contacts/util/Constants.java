@@ -1,4 +1,4 @@
-package com.orion.alixk.contacts;
+package com.orion.alixk.contacts.util;
 
 /**
  * Created by alixk on 25/06/15.

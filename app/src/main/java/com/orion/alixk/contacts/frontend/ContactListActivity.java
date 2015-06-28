@@ -1,4 +1,4 @@
-package com.orion.alixk.contacts;
+package com.orion.alixk.contacts.frontend;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.orion.alixk.contacts.R;
+import com.orion.alixk.contacts.model.ContactObject;
+import com.orion.alixk.contacts.rest.ContactServiceRequest;
+import com.orion.alixk.contacts.util.Constants;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -35,7 +40,13 @@ public class ContactListActivity extends Activity {
 
     @AfterViews
     void init(){
-        contactServiceRequest.establishConnection();
+        //check to see if contacts already exist so it doesn't fetch them every time this activity is opened
+        if(contacts.isEmpty()){
+            contactServiceRequest.establishConnection();
+        } else {
+            populateContactsList(contacts);
+        }
+
     }
 
     /*
@@ -76,8 +87,7 @@ public class ContactListActivity extends Activity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContactObject contact = (ContactObject) parent.getItemAtPosition(position);
-                Intent intent = new Intent(ContactListActivity.this, ContactPage_.class);
+                Intent intent = new Intent(ContactListActivity.this, SingleContactActivity_.class);
                 intent.putExtra(Constants.CONTACT_KEY, position);
                 startActivity(intent);
             }
@@ -108,13 +118,6 @@ public class ContactListActivity extends Activity {
                     public void onClick(DialogInterface dialog, int which) {
                         init();
                         loadingView.setVisibility(View.VISIBLE);
-                        dialog.cancel();
-                    }
-                });
-        alertBuilder.setNegativeButton(Constants.CANCEL,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
