@@ -50,8 +50,7 @@ public class ContactListActivity extends Activity {
     @AfterViews
     void init(){
         //check to see if contacts already exist so it doesn't fetch them every time this activity is opened
-        contacts = new ArrayList<ContactObject>();
-        if(contacts.isEmpty()){
+        if(contacts == null){
             contactServiceRequest.establishConnection();
         } else {
             populateContactsList(contacts);
