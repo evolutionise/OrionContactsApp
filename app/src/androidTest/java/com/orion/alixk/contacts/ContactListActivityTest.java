@@ -1,7 +1,6 @@
 package com.orion.alixk.contacts;
 
 import android.test.ActivityInstrumentationTestCase2;
-import android.test.UiThreadTest;
 import android.widget.ListView;
 
 import com.orion.alixk.contacts.frontend.ContactArrayAdapter;
@@ -28,7 +27,6 @@ public class ContactListActivityTest extends ActivityInstrumentationTestCase2 {
         arrayAdapter = (ContactArrayAdapter) listViewOfContacts.getAdapter();
     }
 
-    @UiThreadTest
     public void testActivityShowsContacts() {
 
         try {
